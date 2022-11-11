@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat";
+  font-style: normal;
+  box-sizing: border-box;
+}
+
+header {
+  width: 100%;
+  height: 15vh;
+  padding: 0 8%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  background: #13293d;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 78px;
+
+  color: #e8f1f2;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+
+  color: #e8f1f2;
+}
+
+p {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #e8f1f2;
+}
+
+label {
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 39px;
+  align-self: flex-start;
+
+  color: #e8f1f2;
+}
+
+p.small {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.cadastro {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.button-cadastro {
+  background-color: #e8f1f2;
+  height: 44px;
+  padding: 12px 25px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.blue-div {
+  width: 50vw;
+  height: 64vh;
+  margin: 70px auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  background: #006494;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.input-box {
+  width: 489px;
+  height: 52px;
+  font-size: 24px;
+}
+
+.button {
+  width: 197px;
+  height: 63px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 20px;
+  line-height: 24px;
+  border-color: #e8f1f2;
+}
+
+.esqueci-senha {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration-line: underline;
+
+  color: #ffffff;
+}
