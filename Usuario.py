@@ -15,9 +15,9 @@ class Usuario():
         comando = "SELECT email_usuario, senha_usuario FROM tb_usuario where email_usuario = %s"
         cs = banco.consultar(comando, [e])
         if cs:
-            for [email, senha] in cs:
-                if email == e:
-                    if check_password_hash(senha, s):
-                      return True
+            [email, senha] = cs.fetchone()
+            if email == e:
+                if check_password_hash(senha, s):
+                  return True
 
         return False

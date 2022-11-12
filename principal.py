@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('telaLogin.html')
+    return render_template('telaLogin.html', MSG = '')
 
 @app.route('/inicio', methods=['POST'])
 def inicio():
@@ -17,9 +17,10 @@ def inicio():
 
 
     if valida:
-            return render_template('inicio.html')
-
-    return redirect(url_for('index'))
+        # Salvar usuário na sessão e fazer validação nas telas
+        return render_template('inicio.html')
+    else:
+        return render_template('telaLogin.html', MSG = 'Usuário ou senha inválida')
 
 @app.route('/esqueciSenha')
 def esqueciSenha():
