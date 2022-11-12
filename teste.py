@@ -1,7 +1,5 @@
 from Usuario import *
 from werkzeug.security import generate_password_hash
 
-print(generate_password_hash('123456'))
-print()
-senha = check_password_hash(generate_password_hash('123456'), '123456')
-print(senha)
+user = Usuario()
+user.cadastro('Thiago', '1', '77777777777', 'thiago@gmail.com', '123456', '11998765432', '2003-03-09')
