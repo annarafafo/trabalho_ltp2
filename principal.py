@@ -21,5 +21,8 @@ def inicio():
 
     return redirect(url_for('index'))
 
+@app.route('/esqueciSenha')
+def esqueciSenha():
+    return render_template('esqueciSenha.html')
 
 app.run(debug=True)
