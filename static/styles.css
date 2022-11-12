@@ -60,7 +60,7 @@ p.small {
 .cadastro {
   display: flex;
   align-items: baseline;
-  gap: 5px;
+  gap: 10px;
 }
 
 .button-cadastro {
@@ -77,10 +77,10 @@ p.small {
   margin: 70px auto;
 
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 10px;
 
   background: #006494;
 }
@@ -88,12 +88,24 @@ p.small {
 .form-login {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   align-items: center;
+}
+
+.form-cadastro {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 45vw;
 }
 
 .input-box {
   width: 489px;
+  height: 52px;
+  font-size: 24px;
+}
+
+.input-cadastro {
+  width: 19vw;
   height: 52px;
   font-size: 24px;
 }
@@ -116,3 +128,8 @@ p.small {
 
   color: #ffffff;
 }
+
+.esqueceu-senha {
+  margin-bottom: 50px;
+}
+
