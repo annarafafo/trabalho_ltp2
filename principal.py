@@ -31,8 +31,7 @@ def login():
         else:
             return render_template('telaLogin.html', MSG='Usuário e/ou senha inválidos')
 
-
-    return render_template('telaLogin.html', MSG = '')
+    return render_template('telaLogin.html', MSG='')
 
 
 @app.route('/logout', methods=['POST'])
@@ -41,8 +40,8 @@ def logout():
     return redirect('/')
 
 
-@app.route('/esqueciSenha')
-def esqueciSenha():
+@app.route('/esquecisenha')
+def esquecisenha():
     return render_template('esqueciSenha.html')
 
 
