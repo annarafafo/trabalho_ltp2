@@ -2,9 +2,7 @@ import mysql.connector
 
 class SQL:
    def __init__(self):
-       self.cnx = mysql.connector.connect(user="root", password="12345678",\
-                                          host='127.0.0.1',\
-                                          database="db_loja")
+       self.cnx = mysql.connector.connect(user="root", password="12345678", host='127.0.0.1', database="db_loja")
 
    def executar(self, comando, parametros):
        cs = self.cnx.cursor()
