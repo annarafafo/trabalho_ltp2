@@ -1,17 +1,7 @@
+# Default ignored files
+/shelf/
+.idea/workspace.xml
 
-__pycache__/principal.cpython-39.pyc
-*.pyc
-*.pyc
-__pycache__/principal.cpython-39.pyc
-__pycache__/Usuario.cpython-39.pyc
-flask_session/1132d65931a0e326c2d2767c3ece4798
-flask_session/1c44a14a1b6ede9d89b99facdc030f8e
-*.pyc
-flask_session/35bb5471e906b0ea9d2adc8925c3d391
-flask_session/2de5a2cdc034081deec0de754dfa1e22
-flask_session/29a60a5dc8f08655f34f54c2cd0f8013
-flask_session/29582559243d646569263bd084bee08d
-flask_session/2890d797ee98883c3a5fb6e4ee793159
-flask_session/2029240f6d1128be89ddc32729463129
-flask_session/1c44a14a1b6ede9d89b99facdc030f8e
-flask_session/1a10c289a806c704bc4cef1d8d274e59
+__pycache__/
+flask_session/
+util/__pycache__/
