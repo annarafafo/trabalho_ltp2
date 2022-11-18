@@ -57,7 +57,7 @@ CREATE TABLE `tb_usuario`
  `cd_sexo`         int NOT NULL ,
  `cpf_usuario`     varchar(15) NOT NULL ,
  `email_usuario`   varchar(50) NOT NULL ,
- `senha_usuario`   varchar(16) NOT NULL ,
+ `senha_usuario`   varchar(255) NOT NULL ,
  `tel_usuario`     varchar(15) NOT NULL ,
  `dt_nasc_usuario` date NOT NULL ,
  `agencia_usuario` varchar(6) NULL ,
