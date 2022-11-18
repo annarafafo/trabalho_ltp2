@@ -26,29 +26,19 @@ KEY `FK_2` (`cd_estado`),
 CONSTRAINT `FK_2` FOREIGN KEY `FK_2` (`cd_estado`) REFERENCES `tb_estado` (`id_estado`)
 );
 
-CREATE TABLE `tb_bairro`
-(
- `id_bairro` int NOT NULL AUTO_INCREMENT ,
- `nm_bairro` varchar(50) NOT NULL ,
- `cd_cidade` int NOT NULL ,
-
-PRIMARY KEY (`id_bairro`),
-KEY `FK_2` (`cd_cidade`),
-CONSTRAINT `FK_3` FOREIGN KEY `FK_2` (`cd_cidade`) REFERENCES `tb_cidade` (`id_cidade`)
-);
-
 CREATE TABLE `tb_endereco`
 (
  `id_endereco`  int NOT NULL AUTO_INCREMENT ,
  `cep_endereco` varchar(10) NOT NULL ,
- `cd_bairro`    int NOT NULL ,
+ `nm_bairro`    varchar(255) NOT NULL ,
  `nm_endereco`  varchar(50) NOT NULL ,
+ `cd_cidade`    int NOT NULL ,
  `num_endereco` varchar(10) NOT NULL ,
  `des_endereco` varchar(100) NOT NULL ,
 
 PRIMARY KEY (`id_endereco`),
-KEY `FK_2` (`cd_bairro`),
-CONSTRAINT `FK_4` FOREIGN KEY `FK_2` (`cd_bairro`) REFERENCES `tb_bairro` (`id_bairro`)
+KEY `FK_2` (`cd_cidade`),
+CONSTRAINT `FK_4` FOREIGN KEY `FK_2` (`cd_cidade`) REFERENCES `tb_cidade` (`id_cidade`)
 );
 
 CREATE TABLE `tb_sexo`
