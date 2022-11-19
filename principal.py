@@ -40,6 +40,11 @@ def logout():
     return redirect('/')
 
 
+@app.route('/cadastro', methods=['POST', 'GET'])
+def cadastro():
+    return render_template('cadastro.html')
+
+
 @app.route('/esquecisenha')
 def esquecisenha():
     return render_template('esqueciSenha.html')
