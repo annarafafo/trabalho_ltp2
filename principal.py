@@ -22,14 +22,16 @@ def login():
         e = request.form.get('email')
         s = request.form.get('senha')
 
-        user = Usuario()
-        valida = user.login(e, s)
+        if e != '' and s != '':
 
-        if valida:
-            session['email'] = e
-            return redirect('/')
-        else:
-            return render_template('telaLogin.html', MSG='Usuário e/ou senha inválidos')
+            user = Usuario()
+            valida = user.login(e, s)
+
+            if valida:
+                session['email'] = e
+                return redirect('/')
+            else:
+                return render_template('telaLogin.html', MSG='Usuário e/ou senha inválidos')
 
     return render_template('telaLogin.html', MSG='')
 
@@ -42,7 +44,49 @@ def logout():
 
 @app.route('/cadastro', methods=['POST', 'GET'])
 def cadastro():
+    if request.method == 'POST':
+        nm = request.form.get('nome')
+        cd = 1
+        cpf = request.form.get('CPF')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
+        tel = request.form.get('tel')
+        dt_nasc = request.form.get('dta-nasc')
+
+        if nm != '' and cd != '' and cpf != '' and email != '' and senha != '' and tel != '' and dt_nasc != '':
+            user = Usuario()
+            cadastro = user.cadastro(nm, cd, cpf, email, senha, tel, dt_nasc)
+
+            if cadastro:
+                return redirect('/login')
+            else:
+                return render_template('telaLogin.html', MSG ='Cadastro Inválido')
+
     return render_template('cadastro.html')
+    
+
+@app.route('/cadastroendereco', methods=['POST', 'GET'])
+def cadstroendereco():
+    if not session.get('email'):
+        return redirect('/login') 
+
+    if request.method == 'POST':
+        cep = request.form.get('cep')
+        bairro = request.form.get('bairro')
+        end = request.form.get('end')
+        cid = request.form.get('cid')
+        num = request.form.get('num')
+        des = request.form.get('des')
+
+        user = Usuario()
+        cadastro = user.cadastro_endereco(cep, bairro, end, cid, num, des, session.get('email'))
+
+        if cadastro:
+            return render_template('cadastroendereco.html')
+        else:
+            return render_template('cadastro.html', MSG ='Cadastro Inválido')
+
+    return redirect('/cadastrar')
 
 
 @app.route('/esquecisenha')
