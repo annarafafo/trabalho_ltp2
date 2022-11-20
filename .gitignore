@@ -6,4 +6,3 @@ __pycache__/
 flask_session/
 util/__pycache__/
 .env
-teste.py
