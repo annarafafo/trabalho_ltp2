@@ -86,7 +86,7 @@ def cadstroendereco():
         else:
             return render_template('cadastro.html', MSG ='Cadastro Inválido')
 
-    return redirect('/cadastrar')
+    return redirect('/cadastro')
 
 
 @app.route('/esquecisenha')
