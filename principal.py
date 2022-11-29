@@ -46,21 +46,26 @@ def logout():
 def cadastro():
     if request.method == 'POST':
         nm = request.form.get('nome')
-        cd = 1
+        cd = request.form.get('sexo')
         cpf = request.form.get('CPF')
         email = request.form.get('email')
         senha = request.form.get('senha')
         tel = request.form.get('tel')
         dt_nasc = request.form.get('dta-nasc')
+        cep = request.form.get('cep')
+        bairro = request.form.get('bairro')
+        end = request.form.get('end')
+        cid = request.form.get('cid')
+        num = request.form.get('num')
+        des = request.form.get('des')
 
-        if nm != '' and cd != '' and cpf != '' and email != '' and senha != '' and tel != '' and dt_nasc != '':
-            user = Usuario()
-            cadastro = user.cadastro(nm, cd, cpf, email, senha, tel, dt_nasc)
+        user = Usuario()
+        cadastro = user.cadastro(nm, cd, cpf, email, senha, tel, dt_nasc, cep, bairro, end, cid, num, des)
 
-            if cadastro:
-                return redirect('/login')
-            else:
-                return render_template('telaLogin.html', MSG ='Cadastro Inválido')
+        if cadastro:
+            return redirect('/login')
+        else:
+            return render_template('cadastro.html', MSG ='Cadastro Inválido')
 
     return render_template('cadastro.html')
     

@@ -29,7 +29,7 @@ CONSTRAINT `FK_2` FOREIGN KEY `FK_2` (`cd_estado`) REFERENCES `tb_estado` (`id_e
 CREATE TABLE `tb_endereco`
 (
  `id_endereco`  int NOT NULL AUTO_INCREMENT ,
- `cep_endereco` varchar(10) NOT NULL ,
+ `cep_endereco` varchar(8) NOT NULL ,
  `nm_bairro`    varchar(255) NOT NULL ,
  `nm_endereco`  varchar(50) NOT NULL ,
  `cd_cidade`    int NOT NULL ,
@@ -73,7 +73,7 @@ KEY `FK_5` (`cd_sexo`),
 CONSTRAINT `FK_1` FOREIGN KEY `FK_5` (`cd_sexo`) REFERENCES `tb_sexo` (`id_sexo`)
 );
 
-CREATE TABLE `tb_endereco__usuario`
+CREATE TABLE `tb_endereco_usuario`
 (
  `id_endereco_usuario` int NOT NULL AUTO_INCREMENT ,
  `cd_endereco`         int NOT NULL ,
@@ -152,7 +152,7 @@ PRIMARY KEY (`id_compra`),
 KEY `FK_2` (`cd_usuario`),
 CONSTRAINT `FK_10` FOREIGN KEY `FK_2` (`cd_usuario`) REFERENCES `tb_usuario` (`id_usuario`),
 KEY `FK_5` (`cd_endereco_usuario`),
-CONSTRAINT `FK_13` FOREIGN KEY `FK_5` (`cd_endereco_usuario`) REFERENCES `tb_endereco__usuario` (`id_endereco_usuario`),
+CONSTRAINT `FK_13` FOREIGN KEY `FK_5` (`cd_endereco_usuario`) REFERENCES `tb_endereco_usuario` (`id_endereco_usuario`),
 KEY `FK_6` (`cd_cartao_usuario`),
 CONSTRAINT `FK_14` FOREIGN KEY `FK_6` (`cd_cartao_usuario`) REFERENCES `tb_cartao_usuario` (`id_cartao_usuario`)
 );
@@ -5838,4 +5838,27 @@ INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('1', 'Masculino')
 INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('2', 'Feminino');
 INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('3', 'Não informar');
 
+DELIMITER $$
+CREATE PROCEDURE sp_01(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date)
+BEGIN
+	INSERT INTO tb_usuario(nm_usuario, cd_sexo, cpf_usuario, email_usuario, senha_usuario, tel_usuario, dt_nasc_usuario)
+    VALUES (nm, sexo, cpf, email, senha, tel, dt);
+END $$
+DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE sp_02(in cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), des varchar(100))
+BEGIN
+	INSERT INTO tb_endereco(cep_endereco, nm_bairro, nm_endereco, cd_cidade, num_endereco, des_endereco)
+    VALUES (cep, bairro, endereco, cidade, num, des);
+END $$
+DELIMITER ;
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_03(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date, cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), des varchar(100))
+BEGIN
+	call sp_01(nm, sexo, cpf, email, senha, tel, dt);
+    call sp_02(cep, bairro, endereco, cidade, num, des);
+    INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES ((SELECT last_insert_id() from tb_usuario), (SELECT last_insert_id() from tb_endereco));
+END $$
+DELIMITER ;

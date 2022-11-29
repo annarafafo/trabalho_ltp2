@@ -12,11 +12,16 @@ class SQL:
         self.cnx = mysql.connector.connect(user=user, password=password, host=host, database=database)
 
     def executar(self, comando, parametros):
-        cs = self.cnx.cursor()
-        cs.execute(comando, parametros)
-        self.cnx.commit()
-        cs.close()
-        return True
+        try:
+            cs = self.cnx.cursor()
+            cs.execute(comando, parametros)
+            self.cnx.commit()
+            cs.close()
+            return True
+        except:
+            self.cnx.rollback()
+            cs.close()
+            return False
 
     def consultar(self, comando, parametros):
         cs = self.cnx.cursor()
