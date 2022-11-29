@@ -22,6 +22,9 @@
       <div class="blue-div">
         <h2>Já é nosso cliente?</h2>
         <p class="small">Faça seu login e boas compras!</p>
+        <div class="error">
+          {{MSG|safe}}
+        </div>
         <form class="form-login" action="/login" method="post">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" class="input-box"/>

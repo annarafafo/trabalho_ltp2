@@ -48,8 +48,10 @@ label {
   font-size: 32px;
   line-height: 39px;
   align-self: flex-start;
+}
 
-  color: #e8f1f2;
+#sexo{
+  font-size: 24px;
 }
 
 p.small {
@@ -69,6 +71,7 @@ p.small {
   padding: 12px 25px;
   text-decoration: none;
   border-radius: 5px;
+  color: black;
 }
 
 .blue-div {
@@ -90,23 +93,30 @@ p.small {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  color: #e8f1f2;
 }
 
 .form-cadastro {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  width: 45vw;
+  width: 50vw;
+  margin: 3vw auto;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 45px;
+  
 }
 
 .input-box {
   width: 489px;
-  height: 52px;
+  height: 32px;
   font-size: 24px;
 }
 
 .input-cadastro {
-  width: 19vw;
-  height: 52px;
+  width: 489px;
+  height: 56px;
   font-size: 24px;
 }
 
@@ -133,3 +143,27 @@ p.small {
   margin-bottom: 50px;
 }
 
+#pag-cadastro{
+  color: black;
+
+}
+
+.select-sexo{
+  width: 500px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center
+}
+
+.campos-cadastro{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 45px;
+}
+.error{
+  color: #FF3300;
+}

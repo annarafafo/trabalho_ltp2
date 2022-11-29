@@ -15,53 +15,70 @@
     <header>
       <h1>Houston Peças</h1>
     </header>
-    <div class="blue-div">
-      <h2>Quer ser nosso cliente?</h2>
-      <p class="small">Preencha os campos abaixo e crie sua conta</p>
-        <form class="form-cadastro" action="/cadastro" method="post">
+    <form class="form-cadastro" action="/cadastro" method="post">
+      <h2 id="pag-cadastro">Quer ser nosso cliente?</h2>
+      <p class="small" id="pag-cadastro">
+        Preencha os campos abaixo e crie sua conta
+      </p>
+      
+      <p class="error">
+        {{MSG | safe}}
+      </p>
+
+      <div class="campos-cadastro">
+        <div>
+          <label for="nome">Nome:</label> <br>
+          <input type="text" id="nome" name="nome" class="input-cadastro" />
+        </div>
+
+        <div>
+          <label for="sexo">Sexo:</label> <br>
+          <div class="select-sexo">
+          
           <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" class="input-cadastro" />
-          </div>
-          <div>
-            <label for="email">E-mail:</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="input-cadastro"
-            />
+            <input type="radio" id="M" name="sexo" value="M" class="radio-button"/>
+            <label for="M" id="sexo">Masculino</label>
           </div>
 
           <div>
-            <label for="senha">Senha:</label>
-            <input
-              type="password"
-              id="senha"
-              name="senha"
-              class="input-cadastro"
-            />
+            <input type="radio" id="F" name="sexo" value="F"  class="radio-button"/>
+            <label for="F" id="sexo">Feminino</label>
           </div>
+
           <div>
-            <label for="CPF">CPF:</label>
-            <input type="text" id="CPF" name="CPF" class="input-cadastro" />
+            <input type="radio" id="n-info" name="sexo" value="Não informar"  class="radio-button"/>
+            <label for="n-info" id="sexo">Não Informar</label>
           </div>
-          <div>
-            <label for="tel">Telefone:</label>
-            <input type="text" id="tel" name="tel" class="input-cadastro" />
-          </div>
-          <div>
-            <label for="dta-nasc">Data de nascimento:</label>
-            <input
-              type="date"
-              id="dta-nasc"
-              name="dta-nasc"
-              class="input-cadastro"
-            />
-          </div>
-          <input type="submit" value="Cadastrar" class="button"/>
-        </form>
+        </div>
+        </div>
+
+        <div>
+          <label for="email">E-mail:</label> <br>
+          <input type="email" id="email" name="email" class="input-cadastro"/>
+        </div>
+
+        <div>
+          <label for="senha">Senha:</label> <br>
+          <input type="password" id="senha" name="senha" class="input-cadastro"/>
+        </div>
+
+        <div>
+          <label for="CPF">CPF:</label> <br>
+          <input type="text" id="CPF" name="CPF" class="input-cadastro"/>
+        </div>
+
+        <div>
+          <label for="tel">Telefone:</label> <br>
+          <input type="text" id="tel" name="tel" class="input-cadastro"/>
+        </div>
+
+        <div>
+          <label for="dta-nasc">Data de nascimento:</label> <br>
+          <input type="date" id="dta-nasc" name="dta-nasc" class="input-cadastro"/>
+        </div>
       </div>
-    </div>
+
+      <input type="submit" value="Cadastrar" class="button" class="input-box"/>
+    </form>
   </body>
 </html>

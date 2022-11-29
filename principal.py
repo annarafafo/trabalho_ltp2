@@ -65,7 +65,7 @@ def cadastro():
         if cadastro:
             return redirect('/login')
         else:
-            return render_template('cadastro.html', MSG ='Cadastro Inválido')
+            return render_template('cadastro.html', MSG ='Cadastro Inválido!')
 
     return render_template('cadastro.html')
     
