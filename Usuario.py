@@ -2,18 +2,18 @@ from util import bd
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class Usuario():
-    def cadastro(self, nm, cd, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco):
+    def cadastro(self, nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco):
         banco = bd.SQL()
         comando = 'call sp_03(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-        retorno = banco.executar(comando, [nm, cd, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco])
+        retorno = banco.executar(comando, [nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco])
 
         return retorno
 
 
-    def cadastro_usuario(self, nm, cd, cpf, email, senha, tel, dt_nasc):
+    def cadastro_usuario(self, nm, sexo, cpf, email, senha, tel, dt_nasc):
         banco = bd.SQL()
         comando = 'call sp_01(%s, %s, %s, %s, %s, %s, %s)'
-        retorno = banco.executar(comando, [nm, cd, cpf, email, generate_password_hash(senha), tel, dt_nasc])
+        retorno = banco.executar(comando, [nm, sexo, cpf, email, generate_password_hash(senha), tel, dt_nasc])
 
         return retorno
 
@@ -40,4 +40,3 @@ class Usuario():
             return False
         except:
             return False
-

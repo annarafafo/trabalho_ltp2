@@ -5836,7 +5836,7 @@ INSERT INTO tb_cidade (id_cidade, nm_cidade, cd_estado) VALUES
 
 INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('1', 'Masculino');
 INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('2', 'Feminino');
-INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('3', 'Não informar');
+INSERT INTO `db_loja`.`tb_sexo` (`id_sexo`, `nm_sexo`) VALUES ('3', 'Não Informar');
 
 DELIMITER $$
 CREATE PROCEDURE sp_01(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date)
