@@ -4,8 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Usuario():
     def cadastro(self, nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco):
         banco = bd.SQL()
+        cd = self.retorna_cidade_id(cidade)
         comando = 'call sp_03(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-        retorno = banco.executar(comando, [nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco])
+        retorno = banco.executar(comando, [nm, sexo, cpf, email, generate_password_hash(senha), tel, dt_nasc, cep, bairro, endereco, cd, num_endereco, des_endereco])
 
         return retorno
 
@@ -40,3 +41,10 @@ class Usuario():
             return False
         except:
             return False
+
+    def retorna_cidade_id(self, cidade):
+        banco = bd.SQL()
+        comando = "SELECT id_cidade FROM tb_cidade where nm_cidade = %s"
+        cs = banco.consultar(comando, [cidade])
+        [cd] = cs.fetchone()
+        return cd

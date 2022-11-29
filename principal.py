@@ -46,7 +46,7 @@ def logout():
 def cadastro():
     if request.method == 'POST':
         nm = request.form.get('nome')
-        sexo = request.form.get('sexo')
+        sexo = int(request.form.get('sexo'))
         cpf = request.form.get('CPF')
         email = request.form.get('email')
         senha = request.form.get('senha')
