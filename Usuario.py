@@ -42,6 +42,7 @@ class Usuario():
         except:
             return False
 
+
     def retorna_cidade_id(self, cidade):
         banco = bd.SQL()
         comando = "SELECT id_cidade FROM tb_cidade where nm_cidade = %s"

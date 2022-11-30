@@ -33,12 +33,13 @@ CREATE TABLE `tb_endereco`
  `nm_bairro`    varchar(255) NOT NULL ,
  `nm_endereco`  varchar(50) NOT NULL ,
  `cd_cidade`    int NOT NULL ,
- `num_endereco` varchar(10) NOT NULL ,
+ `num_endereco` int NOT NULL ,
  `des_endereco` varchar(100) NOT NULL ,
 
 PRIMARY KEY (`id_endereco`),
 KEY `FK_2` (`cd_cidade`),
-CONSTRAINT `FK_4` FOREIGN KEY `FK_2` (`cd_cidade`) REFERENCES `tb_cidade` (`id_cidade`)
+CONSTRAINT `FK_4` FOREIGN KEY `FK_2` (`cd_cidade`) REFERENCES `tb_cidade` (`id_cidade`),
+UNIQUE KEY `uk_end_num` (`cep_endereco`, `num_endereco`)
 );
 
 CREATE TABLE `tb_sexo`
@@ -5855,10 +5856,25 @@ END $$
 DELIMITER ;
 
 DELIMITER $$ 
-CREATE PROCEDURE sp_03(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date, cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), des varchar(100))
+CREATE PROCEDURE sp_03(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date, cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num int, des varchar(100))
 BEGIN
 	call sp_01(nm, sexo, cpf, email, senha, tel, dt);
-    call sp_02(cep, bairro, endereco, cidade, num, des);
-    INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES ((SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1), (SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1));
+    if fc_Id(cep, num) is not null then
+		INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES (fc_Id(cep, num), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
+	else
+		call sp_02(cep, bairro, endereco, cidade, num, des);
+		INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES ((SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
+	end if;
 END $$
+DELIMITER ;
+
+DELIMITER $$
+create function fc_Id(cep varchar(8), num int)
+returns int
+DETERMINISTIC
+Begin
+   declare id int;
+   SELECT id_endereco into id FROM db_loja.tb_endereco where cep_endereco = cep and num_endereco = num;
+   return(id);
+End $$
 DELIMITER ;
