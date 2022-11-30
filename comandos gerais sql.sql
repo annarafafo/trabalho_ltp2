@@ -5859,6 +5859,6 @@ CREATE PROCEDURE sp_03(in nm varchar(100), sexo int, cpf varchar(15), email varc
 BEGIN
 	call sp_01(nm, sexo, cpf, email, senha, tel, dt);
     call sp_02(cep, bairro, endereco, cidade, num, des);
-    INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES ((SELECT last_insert_id() from tb_usuario), (SELECT last_insert_id() from tb_endereco));
+    INSERT INTO tb_endereco_usuario(cd_endereco, cd_usuario) VALUES ((SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1), (SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1));
 END $$
 DELIMITER ;
