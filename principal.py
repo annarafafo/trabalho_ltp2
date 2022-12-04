@@ -1,4 +1,5 @@
 from Usuario import *
+from Produto import *
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 
@@ -92,6 +93,29 @@ def cadstroendereco():
             return render_template('cadastro.html', MSG ='Cadastro Inválido')
 
     return redirect('/cadastro')
+
+
+@app.route('/cadastroproduto', methods=['POST', 'GET'])
+def cadastroproduto():
+    if not session.get('email'):
+        return redirect('/login')
+    
+    nome = request.form.get('nome')
+    valor = request.form.get('valor')
+    categoria = request.form.get('categoria')
+    usuario = request.form.get('usuario')
+    imagem = request.form.get('imagem')
+    descricao = request.form.get('descricao')
+    estoque = request.form.get('estoque')
+
+    produto = Produto()
+    cadastro_produto =produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
+
+    if cadastro_produto:
+        return render_template('index.html')
+    else:
+        return render_template('cadastroproduto.html', MSG ='Produto não cadastrado')
+    
 
 
 @app.route('/esquecisenha')

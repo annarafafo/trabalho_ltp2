@@ -4,25 +4,18 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class Usuario():
     def cadastro(self, nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, endereco, cidade, num_endereco, des_endereco):
         banco = bd.SQL()
-        cd = self.retorna_cidade_id(cidade)
-        comando = 'call sp_03(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        cd = self.retorna_id_cidade(cidade)
+        comando = 'call sp_04(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
         retorno = banco.executar(comando, [nm, sexo, cpf, email, generate_password_hash(senha), tel, dt_nasc, cep, bairro, endereco, cd, num_endereco, des_endereco])
 
         return retorno
 
-
-    def cadastro_usuario(self, nm, sexo, cpf, email, senha, tel, dt_nasc):
+    def cadastro_endereco(self, cep, bairro, endereco, cidade, num_endereco, des_endereco, email):
         banco = bd.SQL()
-        comando = 'call sp_01(%s, %s, %s, %s, %s, %s, %s)'
-        retorno = banco.executar(comando, [nm, sexo, cpf, email, generate_password_hash(senha), tel, dt_nasc])
-
-        return retorno
-
-
-    def cadastro_endereco(self, cep, bairro, endereco, cidade, num_endereco, des_endereco):
-        banco = bd.SQL()
-        comando = 'call sp_02(%s, %s, %s, %s, %s, %s)'
-        retorno = banco.executar(comando, [cep, bairro, endereco, cidade, num_endereco, des_endereco])
+        cd_usuario = self.retorna_id_usuario(email)
+        cd_cidade = self.retorna_id_cidade(cidade)
+        comando = 'call sp_06(%s, %s, %s, %s, %s, %s, %s)'
+        retorno = banco.executar(comando, [cep, bairro, endereco, cd_cidade, num_endereco, des_endereco, cd_usuario])
 
         return retorno
         
@@ -43,9 +36,17 @@ class Usuario():
             return False
 
 
-    def retorna_cidade_id(self, cidade):
+    def retorna_id_cidade(self, cidade):
         banco = bd.SQL()
         comando = "SELECT id_cidade FROM tb_cidade where nm_cidade = %s"
         cs = banco.consultar(comando, [cidade])
+        [cd] = cs.fetchone()
+        return cd
+
+
+    def retorna_id_usuario(self, email):
+        banco = bd.SQL()
+        comando = "SELECT id_usuario FROM tb_usuario where email_usuario = %s"
+        cs = banco.consultar(comando, [email])
         [cd] = cs.fetchone()
         return cd
