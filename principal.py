@@ -103,18 +103,21 @@ def cadastroproduto():
     nome = request.form.get('nome')
     valor = request.form.get('valor')
     categoria = request.form.get('categoria')
-    imagem = request.form.get('imagem')
+    img = request.files['imagem']
     descricao = request.form.get('descricao')
     estoque = request.form.get('estoque')
 
+    imagem = base64.b64encode(img.read())
+    user = Usuario()
+    usuario = user.retorna_id_usuario(session.get('email'))
+
     produto = Produto()
-    cadastro_produto = produto.cadastroprod(nome, valor, categoria, session.get('email'), imagem, descricao, estoque)
+    cadastro_produto = produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
 
     if cadastro_produto:
-        return render_template('index.html')
+        return render_template('index.html', MSG = 'Produto Cadastrado')
     else:
-        return render_template('cadastroproduto.html', MSG ='Produto não cadastrado')
-    
+        return render_template('index.html', MSG = 'Produto Não Cadastrado')
 
 
 @app.route('/esquecisenha')
