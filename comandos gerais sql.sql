@@ -34,7 +34,6 @@ CREATE TABLE `tb_endereco`
  `nm_endereco`  varchar(50) NOT NULL ,
  `cd_cidade`    int NOT NULL ,
  `num_endereco` int NOT NULL ,
- `des_endereco` varchar(100) NOT NULL ,
 
 PRIMARY KEY (`id_endereco`),
 KEY `FK_2` (`cd_cidade`),
@@ -127,7 +126,7 @@ CREATE TABLE `tb_produto`
  `vlr_produto`   decimal(10,2) NOT NULL ,
  `cd_categoria` int NOT NULL ,
  `cd_usuario`   int NULL ,
- `img_produto`  varchar(255)  NULL ,
+ `img_produto`  longblob NULL ,
  `desc_produto` text NOT NULL ,
  `est_produto`  int NOT NULL ,
  
@@ -5848,10 +5847,10 @@ END $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE sp_02(in cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), des varchar(100))
+CREATE PROCEDURE sp_02(in cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10))
 BEGIN
-	INSERT INTO tb_endereco(cep_endereco, nm_bairro, nm_endereco, cd_cidade, num_endereco, des_endereco)
-    VALUES (cep, bairro, endereco, cidade, num, des);
+	INSERT INTO tb_endereco(cep_endereco, nm_bairro, nm_endereco, cd_cidade, num_endereco)
+    VALUES (cep, bairro, endereco, cidade, num);
 END $$
 DELIMITER ;
 
@@ -5863,13 +5862,13 @@ END $$
 DELIMITER ;
 
 DELIMITER $$ 
-CREATE PROCEDURE sp_04(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date, cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num int, des varchar(100))
+CREATE PROCEDURE sp_04(in nm varchar(100), sexo int, cpf varchar(15), email varchar(50), senha varchar(255), tel varchar(15), dt date, cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num int)
 BEGIN
 	call sp_01(nm, sexo, cpf, email, senha, tel, dt);
     if fc_Id(cep, num) is not null then
 		call sp_03 (fc_Id(cep, num), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
 	else
-		call sp_02(cep, bairro, endereco, cidade, num, des);
+		call sp_02(cep, bairro, endereco, cidade, num);
         call sp_03((SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
 	end if;
 END $$
@@ -5895,12 +5894,12 @@ END $$
 DELIMITER ;
 
 DELIMITER $$ 
-CREATE PROCEDURE sp_06(in cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), des varchar(100), cd_usuario int)
+CREATE PROCEDURE sp_06(in cep varchar(8), bairro varchar(255), endereco varchar(50), cidade int, num varchar(10), cd_usuario int)
 BEGIN
 	if fc_Id(cep, num) is not null then
 		call sp_03(fc_Id(cep, num), cd_usuario);
 	else
-		call sp_02(cep, bairro, endereco, cidade, num, des);
+		call sp_02(cep, bairro, endereco, cidade, num);
 		call sp_03((SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1), cd_usuario);
 	end if;
 END $$

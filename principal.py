@@ -14,7 +14,17 @@ def index():
     if not session.get('email'):
         return redirect('/login')
 
-    return render_template('index.html')
+    banco = bd.SQL()
+    comando = "SELECT nm_produto, vlr_produto, img_produto FROM tb_produto"
+    cs = banco.consultar(comando, [])
+    prod = ''
+    for [nm, vlr, img] in cs:
+        #imagem = base64.b64decode(img)
+        prod += '<p>' + nm + str(vlr) + img + '</p>'
+    
+    cs.close()
+
+    return render_template('index.html', produtos = prod) 
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -100,24 +110,27 @@ def cadastroproduto():
     if not session.get('email'):
         return redirect('/login')
     
-    nome = request.form.get('nome')
-    valor = request.form.get('valor')
-    categoria = request.form.get('categoria')
-    img = request.files['imagem']
-    descricao = request.form.get('descricao')
-    estoque = request.form.get('estoque')
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        valor = request.form.get('valor')
+        categoria = request.form.get('categoria')
+        img = request.files['imagem']
+        descricao = request.form.get('descricao')
+        estoque = request.form.get('estoque')
 
-    imagem = base64.b64encode(img.read())
-    user = Usuario()
-    usuario = user.retorna_id_usuario(session.get('email'))
+        imagem = base64.b64encode(img.read())
+        user = Usuario()
+        usuario = user.retorna_id_usuario(session.get('email'))
 
-    produto = Produto()
-    cadastro_produto = produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
+        produto = Produto()
+        cadastro_produto = produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
 
-    if cadastro_produto:
-        return render_template('index.html', MSG = 'Produto Cadastrado')
-    else:
-        return render_template('index.html', MSG = 'Produto Não Cadastrado')
+        if cadastro_produto:
+            return render_template('cadastroProduto.html', MSG = 'Produto Cadastrado')
+        else:
+            return render_template('cadastroProduto.html', MSG = 'Produto Não Cadastrado')
+    
+    return render_template('cadastroProduto.html', MSG = '')
 
 
 @app.route('/esquecisenha')
