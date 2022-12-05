@@ -20,7 +20,7 @@ def index():
     prod = ''
     for [nm, vlr, img] in cs:
         #imagem = base64.b64decode(img)
-        prod +=f'''<a class=\"produto-card\" href=\"produto\">
+        prod +=f'''<a class=\"produto-card\" href=\"{nm}\">
         <img src=\""data:image/jpeg; base64, {img}\">
         <p id="nome-produto">{nm}</p>
         <p>R$ {str(vlr)}</p>
