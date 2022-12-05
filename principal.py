@@ -109,7 +109,7 @@ def cadastroproduto():
     estoque = request.form.get('estoque')
 
     produto = Produto()
-    cadastro_produto =produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
+    cadastro_produto = produto.cadastroprod(nome, valor, categoria, usuario, imagem, descricao, estoque)
 
     if cadastro_produto:
         return render_template('index.html')
