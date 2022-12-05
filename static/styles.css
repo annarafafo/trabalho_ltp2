@@ -168,12 +168,45 @@ p.small {
   color: #FF3300;
 }
 
-
-.material-symbols-outlined {
+#carrinho {
   font-variation-settings:
   'FILL' 1,
   'wght' 400,
   'GRAD' 0,
   'opsz' 48;
   color: #e8f1f2;
+  font-size: 50px;
+  text-decoration: none;
+}
+
+.barra-categorias{
+  height: 50px;
+  background-color: #CDCDCD;
+  
+  font-weight: 500;
+
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.categoria{
+  text-decoration: none;
+  color: black;
+}
+
+.categoria:hover{
+  color: #404040;
+}
+
+.produtos{
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.produto-card{
+  height: 70px;
+  width: 40px;
+  background-color: black;
 }
