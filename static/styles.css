@@ -39,8 +39,6 @@ p {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-
-  color: #e8f1f2;
 }
 
 label {
@@ -63,6 +61,7 @@ p.small {
   display: flex;
   align-items: baseline;
   gap: 10px;
+  color: #e8f1f2
 }
 
 .button-cadastro {
@@ -86,6 +85,7 @@ p.small {
   gap: 10px;
 
   background: #006494;
+  color: #e8f1f2;
 }
 
 .form-login {
@@ -201,12 +201,37 @@ p.small {
 }
 
 .produtos{
-  display: grid;
-  grid-auto-flow: row;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin-top: 8px;
 }
 
-.produto-card{
-  height: 70px;
-  width: 40px;
-  background-color: black;
+.produto-card {
+  height: 405px;
+  width: 320px;
+  padding: 2px;
+  color:black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+}
+
+.produto-card:hover {
+  border: 1px solid #CDCDCD;
+}
+
+img{
+  height: 283px;
+  width: 305px;
+}
+
+#nome-produto{
+  font-weight: 500;
+  max-height: 72px;
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
