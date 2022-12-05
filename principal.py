@@ -68,10 +68,9 @@ def cadastro():
         end = request.form.get('end')
         cid = request.form.get('cid')
         num = request.form.get('num')
-        des = request.form.get('des')
 
         user = Usuario()
-        cadastro = user.cadastro(nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, end, cid, num, des)
+        cadastro = user.cadastro(nm, sexo, cpf, email, senha, tel, dt_nasc, cep, bairro, end, cid, num)
 
         if cadastro:
             return redirect('/login')
@@ -92,10 +91,9 @@ def cadstroendereco():
         end = request.form.get('end')
         cid = request.form.get('cid')
         num = request.form.get('num')
-        des = request.form.get('des')
 
         user = Usuario()
-        cadastro = user.cadastro_endereco(cep, bairro, end, cid, num, des, session.get('email'))
+        cadastro = user.cadastro_endereco(cep, bairro, end, cid, num, session.get('email'))
 
         if cadastro:
             return render_template('cadastroendereco.html')
