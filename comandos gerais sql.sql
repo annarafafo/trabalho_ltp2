@@ -175,7 +175,7 @@ CONSTRAINT `FK_16` FOREIGN KEY `FK_3` (`cd_compra`) REFERENCES `tb_compra` (`id_
 CREATE TABLE `tb_forma_de_pagamento`
 (
  `id_forma_de_pagamento` int NOT NULL AUTO_INCREMENT ,
- `nm_forma_de_pagamento` varchar(15) NOT NULL ,
+ `nm_forma_de_pagamento` varchar(50) NOT NULL ,
 
 PRIMARY KEY (`id_forma_de_pagamento`),
 UNIQUE KEY `uk_nm_forma_de_pagamento` (`nm_forma_de_pagamento`)
