@@ -20,8 +20,8 @@ def index():
     prod = ''
     for [nm, vlr, img] in cs:
         #imagem = base64.b64decode(img)
-        prod +=f'''<a class=\"produto-card\" href=\"{nm}\">
-        <img src=\""data:image/jpeg; base64, {img}\">
+        prod +=f'''<a class=\"produto-card\" href=\"/produto?nome={nm}\">
+        <img src=\"data:image/jpeg; base64, {img}\">
         <p id="nome-produto">{nm}</p>
         <p>R$ {str(vlr)}</p>
         </a>'''
@@ -138,5 +138,16 @@ def cadastroproduto():
 def esquecisenha():
     return render_template('esqueciSenha.html')
 
+
+@app.route('/produto')
+def prod():
+    prod = request.args.get('nome')
+    banco = bd.SQL()
+    comando = f"SELECT nm_produto, vlr_produto, img_produto, desc_produto FROM tb_produto WHERE nm_produto = \"{prod}\""
+    cs = banco.consultar(comando, [])
+    [nm,vlr,img,desc] = cs.fetchone()
+
+    
+    return render_template('produto.html', prod_data=[nm,vlr,desc])
 
 app.run(debug=True)

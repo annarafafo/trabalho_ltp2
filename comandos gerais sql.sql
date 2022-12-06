@@ -126,7 +126,7 @@ CREATE TABLE `tb_produto`
  `vlr_produto`   decimal(10,2) NOT NULL ,
  `cd_categoria` int NOT NULL ,
  `cd_usuario`   int NULL ,
- `img_produto`  longblob NULL ,
+ `img_produto`  longtext NULL ,
  `desc_produto` text NOT NULL ,
  `est_produto`  int NOT NULL ,
  
@@ -5886,7 +5886,7 @@ End $$
 DELIMITER ;
 
 DELIMITER $$ 
-CREATE PROCEDURE sp_05(in nm varchar(255), vlr decimal(10,2), cd_categoria int, cd_usuario int, img longblob, desc_prod text, est int)
+CREATE PROCEDURE sp_05(in nm varchar(255), vlr decimal(10,2), cd_categoria int, cd_usuario int, img longtext, desc_prod text, est int)
 BEGIN
 	INSERT INTO tb_produto (nm_produto, vlr_produto, cd_categoria, cd_usuario, img_produto, desc_produto, est_produto)
     VALUES (nm, vlr, cd_categoria, cd_usuario, img, desc_prod, est);
