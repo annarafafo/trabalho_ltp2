@@ -143,11 +143,17 @@ def esquecisenha():
 def prod():
     prod = request.args.get('nome')
     banco = bd.SQL()
-    comando = f"SELECT nm_produto, vlr_produto, img_produto, desc_produto FROM tb_produto WHERE nm_produto = \"{prod}\""
+    comando = f"SELECT nm_produto, vlr_produto, img_produto, desc_produto FROM tb_produto WHERE nm_produto = \'{prod}\'"
     cs = banco.consultar(comando, [])
     [nm,vlr,img,desc] = cs.fetchone()
 
-    
-    return render_template('produto.html', prod_data=[nm,vlr,desc])
+    prod_data = f'''<img src=\"data:image/jpeg; base64, {img}\">
+      <div class="prod-info">
+      <p class="prod-nome">{nm}</p>
+      <p class="prod-preco">R$ {str(vlr)}</p>
+      <p class="prod-desc">{desc}</p>
+      <a class="button-cadastro" id="compre">Compre Agora</a>'''
+
+    return render_template('produto.html', prod_data=prod_data)
 
 app.run(debug=True)
