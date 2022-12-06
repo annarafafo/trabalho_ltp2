@@ -252,3 +252,9 @@ img{
   justify-content: space-between;
   align-items: center;
 }
+
+#cad-produto{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -9,29 +9,42 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
     <title>Houston Peças</title>
   </head>
   <body>
     <header>
       <h1>Houston Peças</h1>
-      <div class="carrinho-logout">
-      <a class="material-symbols-outlined" id="carrinho" href="/carrinho">shopping_cart</a>
-      <form action="/logout" method="post"><input type="submit" value="Sair" class="logout"></form>
-      </div>
+
+        <div class="cadastro" id="cad-produto">
+          <p>Comece a vender!</p>
+          <a class="button-cadastro" href="/cadastroproduto"
+            >Cadastre aqui seu produto</a
+          >
+        </div>
+        <div class="carrinho-logout">
+          <a class="material-symbols-outlined" id="carrinho" href="/carrinho"
+            >shopping_cart</a
+          >
+          <form action="/logout" method="post">
+            <input type="submit" value="Sair" class="logout" />
+          </form>
+        </div>
+
     </header>
     <div class="barra-categorias">
       <a href="" class="categoria">Processadores</a>
-      <a href="" class="categoria">Placas de Vídeo</a> 
-      <a href="" class="categoria">Memória RAM</a> 
+      <a href="" class="categoria">Placas de Vídeo</a>
+      <a href="" class="categoria">Memória RAM</a>
       <a href="" class="categoria">Disco Rígido</a>
       <a href="" class="categoria">SSD</a>
-      <a href="" class="categoria">Placas Mãe</a> 
-      <a href="" class="categoria">Coolers</a> 
+      <a href="" class="categoria">Placas Mãe</a>
+      <a href="" class="categoria">Coolers</a>
       <a href="" class="categoria">Periféricos</a>
     </div>
-    <div class="produtos">
-      {{produtos|safe}}
-    </div>
+    <div class="produtos">{{produtos|safe}}</div>
   </body>
 </html>
