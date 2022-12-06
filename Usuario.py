@@ -50,3 +50,30 @@ class Usuario():
         cs = banco.consultar(comando, [email])
         [cd] = cs.fetchone()
         return cd
+
+    
+    def retorna_id_endereco_usuario(self, usuario):
+        banco = bd.SQL()
+        comando = "SELECT id_endereco_usuario FROM tb_endereco_usuario where cd_usuario = %s"
+        cs = banco.consultar(comando, [usuario])
+        [cd] = cs.fetchone()
+        return cd
+
+    
+    def retorna_id_cartao_usuario(self, usuario):
+        banco = bd.SQL()
+        comando = "SELECT id_cartao_usuario FROM tb_cartao_usuario where id_usuario = %s"
+        cs = banco.consultar(comando, [usuario])
+        [cd] = cs.fetchone()
+        return cd
+
+
+    def cadastra_cartao(self, nome, numero, validade, bandeira, usuario):
+        banco = bd.SQL()
+        comando =   '''
+                    INSERT INTO tb_cartao (nm_cartao, num_cartao, val_cartao, ban_cartao) VALUES(%s, %s, %s, %s);
+                    INSERT INTO tb_cartao_usuario(id_usuario, id_cartao) VALUES (%s, SELECT last_insert_id() FROM tb_cartao_usuario ORDER BY id_endereco LIMIT 1);
+                    '''
+        retorno = banco.executar(comando, [nome, numero, validade, bandeira, usuario])
+
+        return retorno

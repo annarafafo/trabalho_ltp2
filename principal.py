@@ -1,5 +1,6 @@
 from Usuario import *
 from Produto import *
+from Compra import *
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 
@@ -145,6 +146,7 @@ def prod():
     if not session.get('email'):
         return redirect('/login')
         
+    session['prod'] = None
     prod = request.args.get('nome')
     banco = bd.SQL()
     comando = f"SELECT nm_produto, vlr_produto, img_produto, desc_produto FROM tb_produto WHERE nm_produto = \'{prod}\'"
@@ -156,7 +158,9 @@ def prod():
       <p class="prod-nome">{nm}</p>
       <p class="prod-preco">R$ {str(vlr)}</p>
       <p class="prod-desc">{desc}</p>
-      <a class="button-cadastro" id="compre">Compre Agora</a>'''
+      <form action="/compra" method="post"><a class="button-cadastro" id="compre">Compre Agora</a></form>'''
+
+    session['prod'] = nm
 
     return render_template('produto.html', prod_data=prod_data)
 
@@ -168,8 +172,26 @@ def compra():
     
     if request.method == 'POST':
         nome = request.form.get('nome')
-        valor = request.form.get('valor')
-        categoria = request.form.get('categoria')
-        categoria = request.form.get('categoria')
+        numero = request.form.get('numero')
+        validade = request.form.get('validade')
+        bandeira = request.form.get('bandeira')
+
+        compra = Compra()
+        user = Usuario()
+        prod = Produto()
+
+        user = Usuario()
+        usuario = user.retorna_id_usuario(session.get('email'))
+        cartao = user.retorna_id_cartao_usuario(usuario)
+        endereco = user.retorna_id_endereco_usuario(usuario)
+
+        produto = prod.retorna_id_produto(session.get('prod'))
+        
+
+        compra_produto = compra.comprar(cartao, usuario, produto, endereco)
+
+
+    
+    return render_template('compra.html')
 
 app.run(debug=True)
