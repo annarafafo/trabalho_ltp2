@@ -126,7 +126,7 @@ CREATE TABLE `tb_produto`
  `vlr_produto`   decimal(10,2) NOT NULL ,
  `cd_categoria` int NOT NULL ,
  `cd_usuario`   int NULL ,
- `img_produto`  longblob NULL ,
+ `img_produto`  longtext NULL ,
  `desc_produto` text NOT NULL ,
  `est_produto`  int NOT NULL ,
  
@@ -175,7 +175,7 @@ CONSTRAINT `FK_16` FOREIGN KEY `FK_3` (`cd_compra`) REFERENCES `tb_compra` (`id_
 CREATE TABLE `tb_forma_de_pagamento`
 (
  `id_forma_de_pagamento` int NOT NULL AUTO_INCREMENT ,
- `nm_forma_de_pagamento` varchar(15) NOT NULL ,
+ `nm_forma_de_pagamento` varchar(50) NOT NULL ,
 
 PRIMARY KEY (`id_forma_de_pagamento`),
 UNIQUE KEY `uk_nm_forma_de_pagamento` (`nm_forma_de_pagamento`)
@@ -5918,7 +5918,7 @@ End $$
 DELIMITER ;
 
 DELIMITER $$ 
-CREATE PROCEDURE sp_05(in nm varchar(255), vlr decimal(10,2), cd_categoria int, cd_usuario int, img longblob, desc_prod text, est int)
+CREATE PROCEDURE sp_05(in nm varchar(255), vlr decimal(10,2), cd_categoria int, cd_usuario int, img longtext, desc_prod text, est int)
 BEGIN
 	INSERT INTO tb_produto (nm_produto, vlr_produto, cd_categoria, cd_usuario, img_produto, desc_produto, est_produto)
     VALUES (nm, vlr, cd_categoria, cd_usuario, img, desc_prod, est);
@@ -5936,3 +5936,7 @@ BEGIN
 	end if;
 END $$
 DELIMITER ;
+
+INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('1', 'Boleto');
+INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('2', 'Pix');
+INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('3', 'Cartão de Crédito');
