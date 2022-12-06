@@ -3,6 +3,7 @@ from Produto import *
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 
+
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -141,6 +142,9 @@ def esquecisenha():
 
 @app.route('/produto')
 def prod():
+    if not session.get('email'):
+        return redirect('/login')
+        
     prod = request.args.get('nome')
     banco = bd.SQL()
     comando = f"SELECT nm_produto, vlr_produto, img_produto, desc_produto FROM tb_produto WHERE nm_produto = \'{prod}\'"
@@ -155,5 +159,13 @@ def prod():
       <a class="button-cadastro" id="compre">Compre Agora</a>'''
 
     return render_template('produto.html', prod_data=prod_data)
+
+
+@app.route('/compra', methods=['POST', 'GET'])
+def compra():
+    if not session.get('email'):
+        return redirect('/login')
+    
+    if 
 
 app.run(debug=True)
