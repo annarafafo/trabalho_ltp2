@@ -166,6 +166,10 @@ def compra():
     if not session.get('email'):
         return redirect('/login')
     
-    if 
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        valor = request.form.get('valor')
+        categoria = request.form.get('categoria')
+        categoria = request.form.get('categoria')
 
 app.run(debug=True)
