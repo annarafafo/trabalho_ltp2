@@ -20,7 +20,7 @@ class SQL:
             self.cnx.close()
             return True
         except:
-            #self.cnx.rollback()
+            self.cnx.rollback()
             cs.close()
             self.cnx.close()
             return False
