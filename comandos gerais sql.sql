@@ -141,7 +141,7 @@ CONSTRAINT `FK_15` FOREIGN KEY `FK_3` (`cd_usuario`) REFERENCES `tb_usuario` (`i
 
 CREATE TABLE `tb_compra`
 (
- `id_compra`           int NOT NULL ,
+ `id_compra`           int NOT NULL auto_increment,
  `dt_compra`           date NOT NULL ,
  `cd_endereco_usuario` int NOT NULL ,
  `cd_usuario`          int NOT NULL ,
@@ -5901,7 +5901,7 @@ BEGIN
 		call sp_03 (fc_Id(cep, num), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
 	else
 		call sp_02(cep, bairro, endereco, cidade, num);
-        call sp_03((SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco LIMIT 1), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
+        call sp_03((SELECT last_insert_id() FROM tb_endereco ORDER BY id_endereco desc LIMIT 1), (SELECT last_insert_id() from tb_usuario ORDER BY id_usuario desc LIMIT 1));
 	end if;
 END $$
 DELIMITER ;
@@ -5940,3 +5940,65 @@ DELIMITER ;
 INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('1', 'Boleto');
 INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('2', 'Pix');
 INSERT INTO `db_loja`.`tb_forma_de_pagamento` (`id_forma_de_pagamento`, `nm_forma_de_pagamento`) VALUES ('3', 'Cartão de Crédito');
+
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_07(in endereco int, usuario int, cartao int, valor decimal(10,2), produto int)
+BEGIN
+	if fc_conf_est(produto) is true then
+		call sp_08(endereco, usuario, cartao, valor);
+        call sp_09(produto);
+	end if;
+END $$
+DELIMITER ;
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_08(in endereco int, usuario int, cartao int, valor decimal(10,2))
+BEGIN
+	INSERT INTO tb_compra(dt_compra, cd_endereco_usuario, cd_usuario, cd_cartao_usuario, vlr_compra)
+	VALUES (current_date(), endereco, usuario, cartao, valor);
+END $$
+DELIMITER ;
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_09(in produto int)
+BEGIN
+	INSERT INTO tb_itens(cd_produto, cd_compra, qtd_produto)
+	VALUES(produto, (SELECT last_insert_id() from tb_compra order by id_compra desc limit 1), 1);
+END $$
+DELIMITER ;
+
+
+DELIMITER $$ 
+CREATE PROCEDURE sp_10(in nm varchar(50), num varchar(16), val date, ban varchar(20), id int)
+BEGIN
+	INSERT INTO tb_cartao (nm_cartao, num_cartao, val_cartao, ban_cartao) VALUES(nm, num, val, ban);
+     INSERT INTO tb_cartao_usuario(id_usuario, id_cartao) VALUES (id, (SELECT last_insert_id() FROM tb_cartao ORDER BY id_cartao LIMIT 1));
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+create function fc_est(id int)
+returns int
+DETERMINISTIC
+Begin
+   declare res int;
+   update tb_produto set est_produto = est_produto - 1 where id_produto = id;
+   select est_produto into res from tb_produto where id_produto = id;
+   return(res);
+End $$
+DELIMITER ;
+
+DELIMITER $$
+create function fc_conf_est(id int)
+returns int
+DETERMINISTIC
+Begin
+   if fc_est(id) > 0 then
+		return true;
+	else
+		return false;
+    end if;
+End $$
+DELIMITER ;

@@ -17,10 +17,12 @@ class SQL:
             cs.execute(comando, parametros)
             self.cnx.commit()
             cs.close()
+            self.cnx.close()
             return True
         except:
-            self.cnx.rollback()
+            #self.cnx.rollback()
             cs.close()
+            self.cnx.close()
             return False
 
     def consultar(self, comando, parametros):

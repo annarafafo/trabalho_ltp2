@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cadastro de Produto Houston Peças</title>
+  </head>
+  <body>
+    <header>
+      <h1>Houston Peças</h1>
+    </header>
+    <form class="form-cadastro" id="form-cadastro-prod" action="/compra" method="post" enctype="multipart/form-data">
+      <h2 id="pag-cadastro">Quer comprar esse produto?</h2>
+      <p class="small" id="pag-cadastro">
+        Preencha os dados do seu cartão:
+      </p>
+      
+      <p class="error">
+        {{MSG | safe}}
+      </p>
+
+      <div class="campos-cadastro">
+        <div>
+          <label for="nome">Nome no Cartão:</label> <br>
+          <input type="text" id="nome" name="nome" class="input-cadastro" />
+        </div>
+
+        <div>
+          <label for="numero">Número do Cartão:</label> <br>
+          <input type="number" id="numero" name="numero" class="input-cadastro"/>
+        </div>
+
+        <div>
+          <label for="bandeira">Bandeira</label> <br>
+          <select name="bandeira" id="bandeira" form="form-cadastro-prod" class="input-cadastro">
+            <option value="Visa">Visa</option>
+            <option value="Mastercard">Mastercard</option>
+            <option value="Elo">Elo</option>
+            <option value="AMEX">American Express</option>
+          </select>
+        </div>
+
+        <div>
+            <label for="validade">Data de nascimento:</label> <br>
+            <input type="date" id="validade" name="validade" class="input-cadastro"/>
+        </div>
+        <input type="submit" value="Comprar" class="button" class="input-box"/>
+    </form>
+  </body>
+</html>

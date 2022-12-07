@@ -158,9 +158,10 @@ def prod():
       <p class="prod-nome">{nm}</p>
       <p class="prod-preco">R$ {str(vlr)}</p>
       <p class="prod-desc">{desc}</p>
-      <form action="/compra" method="post"><a class="button-cadastro" id="compre">Compre Agora</a></form>'''
+      <form action="/compra" method="post"><input type="submit" value="Compre Agora" class="button" class="input-box"/></form>'''
 
     session['prod'] = nm
+    session['vlr'] = str(vlr)
 
     return render_template('produto.html', prod_data=prod_data)
 
@@ -180,16 +181,25 @@ def compra():
         user = Usuario()
         prod = Produto()
 
-        user = Usuario()
-        usuario = user.retorna_id_usuario(session.get('email'))
-        cartao = user.retorna_id_cartao_usuario(usuario)
-        endereco = user.retorna_id_endereco_usuario(usuario)
-
-        produto = prod.retorna_id_produto(session.get('prod'))
         
+        usuario = user.retorna_id_usuario(session.get('email'))
+        retorno = user.cadastra_cartao(nome, numero, validade, bandeira, usuario)
+        if retorno:
+            cartao = user.retorna_id_cartao_usuario(usuario)
+            endereco = user.retorna_id_endereco_usuario(usuario)
 
-        compra_produto = compra.comprar(cartao, usuario, produto, endereco)
+            produto = prod.retorna_id_produto(session.get('prod'))
 
+            valor = session.get('vlr')
+            print(endereco, usuario , cartao , valor , produto)
+
+            compra_produto = compra.comprar(endereco, usuario , cartao , valor , produto)
+            print (compra_produto)
+
+            if compra_produto:
+                return render_template('index.html', MSG='')
+            else:
+                return render_template('compra.html')
 
     
     return render_template('compra.html')

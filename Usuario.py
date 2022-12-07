@@ -71,8 +71,7 @@ class Usuario():
     def cadastra_cartao(self, nome, numero, validade, bandeira, usuario):
         banco = bd.SQL()
         comando =   '''
-                    INSERT INTO tb_cartao (nm_cartao, num_cartao, val_cartao, ban_cartao) VALUES(%s, %s, %s, %s);
-                    INSERT INTO tb_cartao_usuario(id_usuario, id_cartao) VALUES (%s, SELECT last_insert_id() FROM tb_cartao_usuario ORDER BY id_endereco LIMIT 1);
+                    call sp_10(%s, %s, %s, %s, %s)
                     '''
         retorno = banco.executar(comando, [nome, numero, validade, bandeira, usuario])
 
